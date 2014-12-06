@@ -50,6 +50,14 @@ class LinkList
     @doc.to_html
   end
 
+  def to_s
+    @list.css('a').each do |a|
+      title = a.content
+      url = a[:href]
+      puts "#{title}, #{url}"
+    end
+  end
+
   def save_to_file
     temp_file = Pathname.new(Dir.tmpdir) + 'echo360-links.htm'
     @export_html_file_path ||= temp_file
@@ -66,5 +74,6 @@ end
 
 if __FILE__ == $0
   list = LinkList.new ARGV.first
+  puts list.to_s
   list.save_and_open_in_firefox
 end
