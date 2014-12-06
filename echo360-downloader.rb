@@ -11,19 +11,24 @@ class LinkList
   def initialize rss_url = nil
     builder = Nokogiri::HTML::Builder.new do |doc|
       doc.html {
-        doc.body {}
+        doc.body {
+          doc.ul {}
+        }
       }
     end
     @doc = builder.doc
-    @body = @doc.at_css 'body'
+    @list = @doc.at_css 'ul'
     load_from_rss_url rss_url if rss_url
   end
 
   def add_link title, url
-    a = Nokogiri::XML::Element.new 'a', @doc # params: name, document to share GC lifecycle with
+    # Element.new params: name, document to share GC lifecycle with
+    li = Nokogiri::XML::Element.new 'li', @doc
+    a = Nokogiri::XML::Element.new 'a', @doc
     a.content = title
     a[:href] = url
-    @body.add_next_sibling a
+    li << a
+    @list << li
   end
 
   def load_from_rss rss_content
@@ -54,6 +59,7 @@ class LinkList
 
   def save_and_open_in_firefox
     save_to_file
+    puts "Opening in Firefox..."
     `firefox #{@export_html_file_path}`
   end
 end
