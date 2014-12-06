@@ -3,6 +3,8 @@ Echo360 Download Tool
 
 Usage: `ruby echo360-download-tool.rb RSS_URL`
 
+[Download now](https://github.com/ZimbiX/echo360-download-tool/archive/master.zip)
+
 This is a small program intended to help download video recordings of university lectures from Echo360. To use, supply the URL of the RSS feed of the Echo360 page from which you'd like to download all the videos, and this program will:
 
 * Output a comma-separated list of video names and links
