@@ -4,6 +4,14 @@ require 'nokogiri'
 require 'open-uri'
 require 'tmpdir'
 require 'pathname'
+require 'uri'
+
+def valid_uri? url
+  uri = URI.parse(url)
+  uri.kind_of?(URI::HTTP)
+rescue URI::InvalidURIError
+  false
+end
 
 class LinkList
   attr_accessor :export_html_file_path
@@ -85,9 +93,14 @@ A small program intended to help download video recordings of university lecture
 END
   puts title
   if ARGV.length > 0 && ARGV.first != "--help"
-    list = LinkList.new ARGV.first
-    puts list.to_s
-    list.save_and_open_in_firefox
+    if valid_uri? ARGV.first
+      list = LinkList.new ARGV.first
+      puts list.to_s
+      list.save_and_open_in_firefox
+    else
+      at_exit { puts '', help }
+      abort "Error: You supplied an invalid URL"
+    end
   else
     puts help
   end
