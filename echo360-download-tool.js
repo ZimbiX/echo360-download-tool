@@ -46,6 +46,8 @@ function getNextVideoUrl(i, max) {
 
   var title = course + ' ' + date;
   var url = $('.info-value a[title~=Video]').attr('href');
+  url = url.replace('media.m4v', 'mediacontent.m4v');
+  title = title.replace(':', '.');
 
   console.log(title);
   console.log(url);
@@ -62,6 +64,24 @@ function scheduleGetNextVideoUrl(i, max) {
       getNextVideoUrl(i, max);
     }, 500);
   } else {
-    console.log('Done');
+    done();
   }
+}
+
+function done() {
+  console.log('Done');
+  $('body').children().remove();
+  var list = document.createElement('ul');
+  $(downloads).each(function() {
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    href = document.createAttribute('href');
+    href.value = this['url'];
+    a.setAttributeNode(href);
+    var title = document.createTextNode(this['title']);
+    a.appendChild(title);
+    li.appendChild(a);
+    list.appendChild(li);
+  })
+  document.body.appendChild(list);
 }
