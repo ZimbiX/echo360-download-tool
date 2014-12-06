@@ -1,5 +1,5 @@
-Echo360 Downloader
-==================
+Echo360 Download Tool
+=====================
 
 Usage: `ruby echo360-download-tool.rb RSS_URL`
 

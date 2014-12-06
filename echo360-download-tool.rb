@@ -82,8 +82,8 @@ end
 
 if __FILE__ == $0
   title = <<-END
-Echo360 Downloader
-==================
+Echo360 Download Tool
+=====================
 
 END
   help = <<-END
