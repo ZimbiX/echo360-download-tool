@@ -73,7 +73,22 @@ class LinkList
 end
 
 if __FILE__ == $0
-  list = LinkList.new ARGV.first
-  puts list.to_s
-  list.save_and_open_in_firefox
+  title = <<-END
+Echo360 Downloader
+==================
+
+END
+  help = <<-END
+Usage: ruby echo360-download-tool.rb RSS_URL
+
+A small program intended to help download video recordings of university lectures from Echo360. See the Readme file for more details.
+END
+  puts title
+  if ARGV.length > 0 && ARGV.first != "--help"
+    list = LinkList.new ARGV.first
+    puts list.to_s
+    list.save_and_open_in_firefox
+  else
+    puts help
+  end
 end
