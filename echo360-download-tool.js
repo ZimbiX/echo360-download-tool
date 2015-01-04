@@ -1,5 +1,6 @@
 // Paste jQuery source first
 
+var delay = 1000;
 var course = $('#course-info').text();
 var downloads = [];
 var echoes = $('#echoes-list > li');
@@ -62,7 +63,7 @@ function scheduleGetNextVideoUrl(i, max) {
     echoes[i].click();
     setTimeout(function() {
       getNextVideoUrl(i, max);
-    }, 500);
+    }, delay);
   } else {
     done();
   }
